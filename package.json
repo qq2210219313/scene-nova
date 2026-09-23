@@ -22,6 +22,10 @@
   "author": "qq2210219313",
   "type": "module",
   "sideEffects": false,
+  "workspaces": [
+    "demo",
+    "examples"
+  ],
   "files": [
     "dist"
   ],
@@ -42,6 +46,11 @@
     "dev": "vite build --watch",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
+    "demo": "npm run dev -w scene-nova-demo",
+    "demo:build": "npm run build -w scene-nova-demo",
+    "examples": "npm run dev -w scene-nova-examples",
+    "examples:build": "npm run build -w scene-nova-examples",
+    "examples:preview": "npm run preview -w scene-nova-examples",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -62,6 +71,7 @@
     "@changesets/cli": "^3.0.3",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.2",
+    "@types/three": "^0.186.0",
     "@vitest/coverage-v8": "^5.0.1",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",

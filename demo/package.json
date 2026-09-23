@@ -1,0 +1,17 @@
+{
+  "name": "scene-nova-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "scene-nova 开发沙盒：开发期间调试与验证库功能的 Vite 工程",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "three": "^0.186.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.0"
+  }
+}

@@ -14,6 +14,10 @@ coverage
 *.local
 *.tsbuildinfo
 
+# VitePress（兼容任意层级，如 examples/.vitepress）
+**/.vitepress/cache/
+**/.vitepress/dist/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -50,17 +50,22 @@ npm install scene-nova three
 
 ### 常用命令
 
-| 命令                    | 说明                              |
-| ----------------------- | --------------------------------- |
-| `npm run dev`           | 监听模式构建（本地库开发）        |
-| `npm run build`         | 构建 ESM 产物与类型声明到 `dist/` |
-| `npm test`              | 运行单元测试（Vitest）            |
-| `npm run test:watch`    | 监听模式运行测试                  |
-| `npm run test:coverage` | 生成测试覆盖率报告                |
-| `npm run typecheck`     | TypeScript 类型检查               |
-| `npm run lint`          | ESLint 检查（含类型感知规则）     |
-| `npm run format`        | Prettier 格式化全部文件           |
-| `npm run check:package` | publint 校验产物与 `exports` 配置 |
+| 命令                       | 说明                              |
+| -------------------------- | --------------------------------- |
+| `npm run dev`              | 监听模式构建（本地库开发）        |
+| `npm run build`            | 构建 ESM 产物与类型声明到 `dist/` |
+| `npm run demo`             | 启动开发沙盒（`demo/`）           |
+| `npm run demo:build`       | 构建开发沙盒                      |
+| `npm run examples`         | 启动演示与文档站（`examples/`）   |
+| `npm run examples:build`   | 构建演示与文档站                  |
+| `npm run examples:preview` | 预览构建后的演示与文档站          |
+| `npm test`                 | 运行单元测试（Vitest）            |
+| `npm run test:watch`       | 监听模式运行测试                  |
+| `npm run test:coverage`    | 生成测试覆盖率报告                |
+| `npm run typecheck`        | TypeScript 类型检查               |
+| `npm run lint`             | ESLint 检查（含类型感知规则）     |
+| `npm run format`           | Prettier 格式化全部文件           |
+| `npm run check:package`    | publint 校验产物与 `exports` 配置 |
 
 ### 目录结构
 
@@ -68,9 +73,18 @@ npm install scene-nova three
 | -------------------- | ------------------------------------------------------------------------------ |
 | `src/`               | 源码；按模块划分目录（见[模块架构](#模块架构)），`src/index.ts` 是唯一公共入口 |
 | `tests/`             | 单元测试                                                                       |
+| `demo/`              | 开发沙盒：开发期间调试与验证库功能的 Vite 应用（直连源码，热更新）             |
+| `examples/`          | 演示与文档站：VitePress 站点（示例演示 + 使用文档，直连源码）                  |
 | `dist/`              | 构建产物（不提交 Git、不手工修改）                                             |
 | `.changeset/`        | 版本变更记录                                                                   |
 | `.github/workflows/` | CI 与发布工作流                                                                |
+
+### demo 与 examples
+
+- `demo/`：开发沙盒（Vite），通过别名直连 `src/` 源码，修改库代码即时热更新；
+- `examples/`：演示与文档站（VitePress），示例与文档页面同样直连库源码。
+
+两者作为 npm workspaces 由根目录统一安装依赖（`npm install` 即可）。
 
 ## 版本管理与发布
 

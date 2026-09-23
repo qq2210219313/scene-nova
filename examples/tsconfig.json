@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "vitepress/client"],
+    "paths": {
+      "scene-nova": ["../src"]
+    }
+  },
+  "include": [".vitepress/**/*.ts"]
+}
