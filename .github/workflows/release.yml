@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 有未发布的 changeset 时会创建/更新 Release PR；
+      # Release PR 合并后再次运行时自动构建并发布到 npm。
+      # 发布凭证二选一：
+      #   1. 在仓库 Settings → Secrets 中配置 NPM_TOKEN（npm Automation Token）
+      #   2. 在 npm 包设置中启用 Trusted Publishing（OIDC），无需 NPM_TOKEN
+      - name: Create Release Pull Request or Publish
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+          version: npm run version-packages
+          commit: "chore: release"
+          title: "chore: release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

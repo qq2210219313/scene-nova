@@ -1,0 +1,16 @@
+# 统一换行符为 LF（与 Prettier / EditorConfig 保持一致）
+* text=auto eol=lf
+
+# 二进制文件不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.glb binary
+*.gltf binary
+*.hdr binary
+*.exr binary
+*.fbx binary
