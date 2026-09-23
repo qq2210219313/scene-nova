@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { NovaScene } from "scene-nova";
+import { Scene } from "scene-nova";
 
 /**
  * scene-nova 开发沙盒
@@ -19,8 +19,8 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-// —— Scene：使用 scene-nova 的 NovaScene 管理三维环境 ——
-const scene = new NovaScene();
+// —— Scene：使用 scene-nova 管理三维环境 ——
+const scene = new Scene();
 scene.setBackground("#0b0e14");
 scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
 

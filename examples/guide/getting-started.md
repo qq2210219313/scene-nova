@@ -13,10 +13,10 @@ npm install scene-nova three
 ## 引入
 
 ```ts
-import { NovaScene } from "scene-nova";
+import { Scene } from "scene-nova";
 
 // 创建场景并管理三维环境
-const scene = new NovaScene();
+const scene = new Scene();
 scene.setBackground("#0b0e14");
 scene.setFog({ color: "#0b0e14", near: 10, far: 100 });
 ```

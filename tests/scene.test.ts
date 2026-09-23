@@ -1,15 +1,15 @@
 import * as THREE from "three";
 import { describe, expect, it } from "vitest";
 
-import { NovaScene } from "../src";
+import { Scene } from "../src";
 
-describe("NovaScene", () => {
+describe("Scene", () => {
   it("继承自 THREE.Scene", () => {
-    expect(new NovaScene()).toBeInstanceOf(THREE.Scene);
+    expect(new Scene()).toBeInstanceOf(THREE.Scene);
   });
 
   it("所有设置方法支持链式调用", () => {
-    const scene = new NovaScene();
+    const scene = new Scene();
     const result = scene
       .setBackground("#000000")
       .setEnvironment(null)
@@ -22,7 +22,7 @@ describe("NovaScene", () => {
 
   describe("背景", () => {
     it("支持十六进制字符串颜色", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setBackground("#112233");
 
       expect(scene.background).toBeInstanceOf(THREE.Color);
@@ -30,7 +30,7 @@ describe("NovaScene", () => {
     });
 
     it("支持数值颜色", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setBackground(0xff0000);
 
       expect(scene.background).toBeInstanceOf(THREE.Color);
@@ -38,7 +38,7 @@ describe("NovaScene", () => {
     });
 
     it("支持 THREE.Color 实例", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       const color = new THREE.Color("#336699");
       scene.setBackground(color);
 
@@ -46,7 +46,7 @@ describe("NovaScene", () => {
     });
 
     it("支持纹理", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       const texture = new THREE.Texture();
       scene.setBackground(texture);
 
@@ -54,7 +54,7 @@ describe("NovaScene", () => {
     });
 
     it("传入 null 清除背景", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setBackground("#ffffff").setBackground(null);
 
       expect(scene.background).toBeNull();
@@ -63,7 +63,7 @@ describe("NovaScene", () => {
 
   describe("雾", () => {
     it("setFog 使用默认值创建线性雾", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setFog();
 
       expect(scene.fog).toBeInstanceOf(THREE.Fog);
@@ -73,7 +73,7 @@ describe("NovaScene", () => {
     });
 
     it("setFog 应用自定义参数", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setFog({ color: "#aabbcc", near: 5, far: 50 });
 
       const fog = scene.fog as THREE.Fog;
@@ -83,7 +83,7 @@ describe("NovaScene", () => {
     });
 
     it("setFogExp2 使用默认浓度创建指数雾", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setFogExp2();
 
       expect(scene.fog).toBeInstanceOf(THREE.FogExp2);
@@ -91,7 +91,7 @@ describe("NovaScene", () => {
     });
 
     it("setFogExp2 应用自定义参数", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setFogExp2({ color: "#123456", density: 0.05 });
 
       const fog = scene.fog as THREE.FogExp2;
@@ -100,7 +100,7 @@ describe("NovaScene", () => {
     });
 
     it("clearFog 清除雾效", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       scene.setFog().clearFog();
 
       expect(scene.fog).toBeNull();
@@ -109,7 +109,7 @@ describe("NovaScene", () => {
 
   describe("环境贴图", () => {
     it("支持设置与清除", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       const texture = new THREE.Texture();
 
       scene.setEnvironment(texture);
@@ -122,7 +122,7 @@ describe("NovaScene", () => {
 
   describe("覆盖材质", () => {
     it("支持设置与清除", () => {
-      const scene = new NovaScene();
+      const scene = new Scene();
       const material = new THREE.MeshBasicMaterial();
 
       scene.setOverrideMaterial(material);

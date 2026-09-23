@@ -4,7 +4,7 @@ import { loadColorTexture } from "./loaders";
 import type { BackgroundImageOptions, ExpFogOptions, LinearFogOptions } from "./types";
 
 /**
- * NovaScene（场景）
+ * Scene（场景）
  *
  * 继承自 `THREE.Scene`，在保留 Three.js 原生能力的基础上，提供三维环境的简化管理：
  *
@@ -16,12 +16,12 @@ import type { BackgroundImageOptions, ExpFogOptions, LinearFogOptions } from "./
  * 所有设置方法均返回实例本身，支持链式调用：
  *
  * ```ts
- * const scene = new NovaScene()
+ * const scene = new Scene()
  *   .setBackground("#0b0e14")
  *   .setFog({ color: "#0b0e14", near: 10, far: 100 });
  * ```
  */
-export class NovaScene extends THREE.Scene {
+export class Scene extends THREE.Scene {
   /**
    * 设置场景背景。
    *

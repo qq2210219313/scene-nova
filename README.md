@@ -21,10 +21,10 @@ npm install scene-nova three
 ## 使用
 
 ```ts
-import { NovaScene } from "scene-nova";
+import { Scene } from "scene-nova";
 
-// 创建场景并管理三维环境（NovaScene 继承自 THREE.Scene）
-const scene = new NovaScene();
+// 创建场景并管理三维环境（继承自 THREE.Scene）
+const scene = new Scene();
 
 // 背景：颜色 / 图片 / 360° 全景
 scene.setBackground("#0b0e14");

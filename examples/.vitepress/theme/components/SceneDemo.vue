@@ -2,12 +2,12 @@
 import * as THREE from "three";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
-import { NovaScene } from "scene-nova";
+import { Scene } from "scene-nova";
 
 /**
  * 基础场景演示
  *
- * Scene 模块已接入（NovaScene）；Camera / Render / Factory 等模块实现后将逐步替换。
+ * Scene 模块已接入；Camera / Render / Factory 等模块实现后将逐步替换。
  */
 
 const container = ref<HTMLDivElement>();
@@ -25,8 +25,8 @@ onMounted(() => {
   renderer.setSize(el.clientWidth, el.clientHeight);
   el.appendChild(renderer.domElement);
 
-  // —— Scene：使用 scene-nova 的 NovaScene 管理三维环境 ——
-  const scene = new NovaScene();
+  // —— Scene：使用 scene-nova 管理三维环境 ——
+  const scene = new Scene();
   scene.setBackground("#0b0e14");
   scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
 

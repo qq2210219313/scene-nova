@@ -2,7 +2,7 @@
 
 一个最小化的 3D 场景演示：渲染循环 + 旋转立方体。
 
-> 场景环境部分已使用 scene-nova 的 Scene 模块（NovaScene），其余部分待对应模块实现后替换。
+> 场景环境部分已使用 scene-nova 的 Scene 模块，其余部分待对应模块实现后替换。
 
 <ClientOnly>
   <SceneDemo />
@@ -12,7 +12,7 @@
 
 ```ts
 // 场景（scene-nova）
-const scene = new NovaScene();
+const scene = new Scene();
 scene.setBackground("#0b0e14");
 scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
 
