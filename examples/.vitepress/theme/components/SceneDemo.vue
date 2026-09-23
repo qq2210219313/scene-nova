@@ -2,10 +2,12 @@
 import * as THREE from "three";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
+import { NovaScene } from "scene-nova";
+
 /**
- * 基础场景演示（占位实现）
+ * 基础场景演示
  *
- * TODO: scene-nova 模块 API 实现后，用 Engine / Scene / Camera / Render 替换以下原生 Three.js 代码。
+ * Scene 模块已接入（NovaScene）；Camera / Render / Factory 等模块实现后将逐步替换。
  */
 
 const container = ref<HTMLDivElement>();
@@ -23,8 +25,10 @@ onMounted(() => {
   renderer.setSize(el.clientWidth, el.clientHeight);
   el.appendChild(renderer.domElement);
 
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0b0e14);
+  // —— Scene：使用 scene-nova 的 NovaScene 管理三维环境 ——
+  const scene = new NovaScene();
+  scene.setBackground("#0b0e14");
+  scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
 
   const camera = new THREE.PerspectiveCamera(60, el.clientWidth / el.clientHeight, 0.1, 100);
   camera.position.set(2, 2, 3);
@@ -36,6 +40,11 @@ onMounted(() => {
   );
   scene.add(cube);
   scene.add(new THREE.HemisphereLight(0xffffff, 0x223344, 2.5));
+
+  // 地面网格：用于观察雾效
+  const grid = new THREE.GridHelper(24, 24, 0x335588, 0x223344);
+  grid.position.y = -1;
+  scene.add(grid);
 
   const onResize = () => {
     camera.aspect = el.clientWidth / el.clientHeight;

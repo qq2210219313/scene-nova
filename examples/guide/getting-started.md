@@ -1,6 +1,6 @@
 # 快速开始
 
-> **状态：骨架阶段。** scene-nova 的模块 API 尚未实现，本页先介绍接入方式，API 就绪后会补充完整示例。
+> **状态：开发中。** Scene 模块已提供初版 API，其余模块实现后会补充完整示例。
 
 ## 安装
 
@@ -13,8 +13,12 @@ npm install scene-nova three
 ## 引入
 
 ```ts
-// TODO: 模块 API 实现后补充示例
-// import { Engine, Scene, Camera } from "scene-nova";
+import { NovaScene } from "scene-nova";
+
+// 创建场景并管理三维环境
+const scene = new NovaScene();
+scene.setBackground("#0b0e14");
+scene.setFog({ color: "#0b0e14", near: 10, far: 100 });
 ```
 
 ## 本地开发

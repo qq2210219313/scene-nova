@@ -8,7 +8,7 @@ ThreeNova 是一个基于 Three.js 构建的轻量级 Web 3D SDK，旨在对 Thr
 
 源码按职责划分为 **Scene、Camera、Render、Factory、Builder、Engine、Utils** 七个模块，分别位于 `src/` 下的同名目录，并由 `src/index.ts` 统一导出（详见[模块架构](#模块架构)）。
 
-> **状态：骨架阶段。** 工程化设施与模块骨架已就绪，API 尚未实现。
+> **状态：开发中。** 工程化设施就绪，Scene 模块已提供初版 API，其余模块逐步实现中。
 
 ## 安装
 
@@ -21,8 +21,23 @@ npm install scene-nova three
 ## 使用
 
 ```ts
-// TODO: 模块 API 实现后补充使用示例
-// import { Engine, Scene, Camera } from "scene-nova";
+import { NovaScene } from "scene-nova";
+
+// 创建场景并管理三维环境（NovaScene 继承自 THREE.Scene）
+const scene = new NovaScene();
+
+// 背景：颜色 / 图片 / 360° 全景
+scene.setBackground("#0b0e14");
+// scene.setBackgroundFromUrl("./panorama.jpg", { equirectangular: true });
+
+// 雾：setFog（线性）/ setFogExp2（指数）
+scene.setFog({ color: "#0b0e14", near: 10, far: 100 });
+
+// 环境贴图
+// scene.setEnvironmentFromUrl("./environment.jpg");
+
+// 覆盖材质
+// scene.setOverrideMaterial(new THREE.MeshNormalMaterial());
 ```
 
 ## 模块架构
@@ -31,7 +46,7 @@ npm install scene-nova three
 
 | 模块              | 目录           | 职责                                                                  | 状态   |
 | ----------------- | -------------- | --------------------------------------------------------------------- | ------ |
-| `Scene`（场景）   | `src/scene/`   | 管理三维环境：环境贴图、背景（图片/颜色）、雾（含距离雾）、覆盖材质等 | 待实现 |
+| `Scene`（场景）   | `src/scene/`   | 管理三维环境：环境贴图、背景（图片/颜色）、雾（含距离雾）、覆盖材质等 | 已实现 |
 | `Camera`（相机）  | `src/camera/`  | 相机类的封装与控制                                                    | 待实现 |
 | `Render`（渲染）  | `src/render/`  | 渲染器相关：渲染器封装、渲染循环与画面输出                            | 待实现 |
 | `Factory`（工厂） | `src/factory/` | 对 Three.js 绘制类做二次简化封装，参数与返回值保持原生一致            | 待实现 |

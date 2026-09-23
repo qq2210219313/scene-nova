@@ -2,7 +2,7 @@
 
 一个最小化的 3D 场景演示：渲染循环 + 旋转立方体。
 
-> 当前演示使用原生 Three.js 实现（占位），待 scene-nova 模块 API 就绪后替换为库的用法。
+> 场景环境部分已使用 scene-nova 的 Scene 模块（NovaScene），其余部分待对应模块实现后替换。
 
 <ClientOnly>
   <SceneDemo />
@@ -11,9 +11,10 @@
 ## 核心代码
 
 ```ts
-// 场景
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0b0e14);
+// 场景（scene-nova）
+const scene = new NovaScene();
+scene.setBackground("#0b0e14");
+scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
 
 // 相机
 const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
