@@ -8,10 +8,47 @@ describe("Scene", () => {
     expect(new Scene()).toBeInstanceOf(THREE.Scene);
   });
 
+  describe("构造函数", () => {
+    it("支持传入初始配置", () => {
+      const scene = new Scene({
+        background: "#0b0e14",
+        backgroundBlurriness: 0.5,
+        backgroundIntensity: 1.2,
+        environment: null,
+        fog: { color: "#aabbcc", near: 5, far: 50 },
+        overrideMaterial: null,
+      });
+
+      expect(scene.background).toBeInstanceOf(THREE.Color);
+      expect(scene.backgroundBlurriness).toBe(0.5);
+      expect(scene.backgroundIntensity).toBe(1.2);
+      expect(scene.fog).toBeInstanceOf(THREE.Fog);
+      expect((scene.fog as THREE.Fog).near).toBe(5);
+    });
+
+    it("fog 支持指数雾配置", () => {
+      const scene = new Scene({ fog: { type: "exp2", color: "#123456", density: 0.05 } });
+
+      expect(scene.fog).toBeInstanceOf(THREE.FogExp2);
+      expect((scene.fog as THREE.FogExp2).density).toBe(0.05);
+    });
+
+    it("背景配置中的亮度与模糊度生效", () => {
+      const scene = new Scene({
+        background: { equirectangular: new THREE.Texture(), blurriness: 0.4, intensity: 1.5 },
+      });
+
+      expect(scene.backgroundBlurriness).toBe(0.4);
+      expect(scene.backgroundIntensity).toBe(1.5);
+    });
+  });
+
   it("所有设置方法支持链式调用", () => {
     const scene = new Scene();
     const result = scene
-      .setBackground("#000000")
+      .setBackground({ color: "#000000" })
+      .setBackgroundBlurriness(0)
+      .setBackgroundIntensity(1)
       .setEnvironment(null)
       .setFog({})
       .setOverrideMaterial(null)
@@ -58,6 +95,64 @@ describe("Scene", () => {
       scene.setBackground("#ffffff").setBackground(null);
 
       expect(scene.background).toBeNull();
+    });
+  });
+
+  describe("背景（配置对象）", () => {
+    it("{ color } 纯色背景", () => {
+      const scene = new Scene();
+      scene.setBackground({ color: "#112233" });
+
+      expect(scene.background).toBeInstanceOf(THREE.Color);
+      expect((scene.background as THREE.Color).getHexString()).toBe("112233");
+    });
+
+    it("{ texture } 二维图片背景（可带亮度）", () => {
+      const scene = new Scene();
+      const texture = new THREE.Texture();
+      scene.setBackground({ texture, intensity: 0.8 });
+
+      expect(scene.background).toBe(texture);
+      expect(scene.backgroundIntensity).toBe(0.8);
+    });
+
+    it("{ cube } 立方体天空盒背景（可带亮度与模糊度）", () => {
+      const scene = new Scene();
+      const cube = new THREE.CubeTexture();
+      scene.setBackground({ cube, intensity: 1.5, blurriness: 0.4 });
+
+      expect(scene.background).toBe(cube);
+      expect(scene.backgroundIntensity).toBe(1.5);
+      expect(scene.backgroundBlurriness).toBe(0.4);
+    });
+
+    it("{ equirectangular } HDR / 全景背景（自动设置映射）", () => {
+      const scene = new Scene();
+      const texture = new THREE.Texture();
+      scene.setBackground({ equirectangular: texture, blurriness: 0.3 });
+
+      expect(scene.background).toBe(texture);
+      expect(texture.mapping).toBe(THREE.EquirectangularReflectionMapping);
+      expect(scene.backgroundBlurriness).toBe(0.3);
+    });
+
+    it("支持传入裸 CubeTexture（自动作为天空盒）", () => {
+      const scene = new Scene();
+      const cube = new THREE.CubeTexture();
+      scene.setBackground(cube);
+
+      expect(scene.background).toBe(cube);
+    });
+  });
+
+  describe("背景模糊度与亮度", () => {
+    it("支持独立设置并返回实例", () => {
+      const scene = new Scene();
+
+      expect(scene.setBackgroundBlurriness(0.6)).toBe(scene);
+      expect(scene.setBackgroundIntensity(2)).toBe(scene);
+      expect(scene.backgroundBlurriness).toBe(0.6);
+      expect(scene.backgroundIntensity).toBe(2);
     });
   });
 

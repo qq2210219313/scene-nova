@@ -5,4 +5,16 @@
  */
 
 export { Scene } from "./Scene";
-export type { BackgroundImageOptions, ExpFogOptions, LinearFogOptions } from "./types";
+export type {
+  BackgroundImageOptions,
+  BackgroundInput,
+  BackgroundOptions,
+  ColorBackgroundOptions,
+  CubeBackgroundOptions,
+  EquirectangularBackgroundOptions,
+  ExpFogOptions,
+  FogOptions,
+  LinearFogOptions,
+  SceneOptions,
+  TextureBackgroundOptions,
+} from "./types";

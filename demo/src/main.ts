@@ -19,10 +19,11 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-// —— Scene：使用 scene-nova 管理三维环境 ——
-const scene = new Scene();
-scene.setBackground("#0b0e14");
-scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
+// —— Scene：使用 scene-nova 管理三维环境（构造时可传入初始配置） ——
+const scene = new Scene({
+  background: "#0b0e14",
+  fog: { color: "#0b0e14", near: 5, far: 15 },
+});
 
 // 相机（待 Camera 模块实现后替换）
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);

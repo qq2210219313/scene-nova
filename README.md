@@ -23,15 +23,21 @@ npm install scene-nova three
 ```ts
 import { Scene } from "scene-nova";
 
-// 创建场景并管理三维环境（继承自 THREE.Scene）
-const scene = new Scene();
+// 创建场景并管理三维环境（继承自 THREE.Scene），构造时支持传入初始配置
+const scene = new Scene({
+  background: "#0b0e14",
+  fog: { color: "#0b0e14", near: 10, far: 100 },
+});
 
-// 背景：颜色 / 图片 / 360° 全景
-scene.setBackground("#0b0e14");
-// scene.setBackgroundFromUrl("./panorama.jpg", { equirectangular: true });
+// 背景支持四种类型（纹理类可带 intensity 亮度 / blurriness 模糊度）
+scene.setBackground({ color: "#0b0e14" }); // 纯色
+// scene.setBackground({ texture }); // 二维图片
+// scene.setBackground({ cube: cubeTexture, blurriness: 0.4 }); // 立方体天空盒
+// scene.setBackground({ equirectangular: hdrTexture, blurriness: 0.4 }); // HDR / 全景
 
-// 雾：setFog（线性）/ setFogExp2（指数）
-scene.setFog({ color: "#0b0e14", near: 10, far: 100 });
+// 独立控制背景模糊度与亮度
+scene.setBackgroundBlurriness(0.4);
+scene.setBackgroundIntensity(1.2);
 
 // 环境贴图
 // scene.setEnvironmentFromUrl("./environment.jpg");

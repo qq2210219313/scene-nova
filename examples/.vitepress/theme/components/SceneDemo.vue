@@ -25,10 +25,11 @@ onMounted(() => {
   renderer.setSize(el.clientWidth, el.clientHeight);
   el.appendChild(renderer.domElement);
 
-  // —— Scene：使用 scene-nova 管理三维环境 ——
-  const scene = new Scene();
-  scene.setBackground("#0b0e14");
-  scene.setFog({ color: "#0b0e14", near: 5, far: 15 });
+  // —— Scene：使用 scene-nova 管理三维环境（构造时可传入初始配置） ——
+  const scene = new Scene({
+    background: "#0b0e14",
+    fog: { color: "#0b0e14", near: 5, far: 15 },
+  });
 
   const camera = new THREE.PerspectiveCamera(60, el.clientWidth / el.clientHeight, 0.1, 100);
   camera.position.set(2, 2, 3);
